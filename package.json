@@ -1,0 +1,47 @@
+{
+  "name": "mongorestorm",
+  "version": "0.0.1",
+  "description": "A REST server for commonly used mongodb-driver operations.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "cleanup": "rimraf dist && rimraf coverage && rimraf .nyc_output && rimraf docs",
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "docs": "typedoc --out docs --mode modules --tsconfig tsconfig.json src && touch docs/.nojekyll",
+    "docs:deploy": "npm run docs && gh-pages --dotfiles --dist docs",
+    "test": "mocha --require ts-node/register test/**/*.test.ts",
+    "test:coverage": "nyc --reporter=lcov --include dist npm run test",
+    "test:coveralls": "cat coverage/lcov.info | coveralls",
+    "prepare": "npm run build"
+  },
+  "author": "Zishran Julbert D. Garces <zishgarces@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.1",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "joi": "^14.3.1",
+    "mongodb": "^3.2.1",
+    "mongodb-extended-json": "^1.10.1",
+    "oas-tools": "^2.1.7",
+    "saslprep": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.0",
+    "@types/js-yaml": "^3.12.1",
+    "@types/mocha": "^5.2.7",
+    "@types/mongodb": "^3.3.1",
+    "@types/node": "^12.7.3",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.6",
+    "gh-pages": "^2.1.1",
+    "mocha": "^6.2.0",
+    "rimraf": "^3.0.0",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.19.0",
+    "typedoc": "^0.15.0",
+    "typescript": "^3.6.2"
+  }
+}
