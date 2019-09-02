@@ -1,6 +1,6 @@
 import { AppContext } from '../../types';
-import { Logger } from '../helpers/Logger';
-import { MongoManager } from '../helpers/MongoManager';
+import { Logger } from '../helpers/logger';
+import { MongoManager } from '../helpers/mongo-manager';
 
 const log = new Logger(__filename);
 

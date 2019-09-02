@@ -1,6 +1,6 @@
-import paths from './paths';
-import schemas from './schemas';
-import servers from './servers';
+import { paths } from './paths';
+import { schemas } from './schemas';
+import { servers } from './servers';
 
 const oasSpec = {
   openapi: '3.0.0',

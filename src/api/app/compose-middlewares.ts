@@ -3,7 +3,7 @@ import {
   urlencoded,
 } from 'express';
 import { AppContext } from '../../types';
-import { setAccessControl } from '../middlewares/set-accesscontrol';
+import { setAccessControl } from '../middlewares/set-access-control';
 import { setContext } from '../middlewares/set-context';
 
 const composeMiddlewares = async (context: AppContext): Promise<AppContext> => {

@@ -1,4 +1,5 @@
-import { MongoRestOrm } from '.';
+import * as Joi from '@hapi/joi';
+import { extendedJoi, MongoRestOrm } from '.';
 
 new MongoRestOrm({
   mongo: {
@@ -10,7 +11,7 @@ new MongoRestOrm({
     },
   },
   server: {
-    host: 'http://localhost:3000'
+    host: 'http://localhost:3000',
   },
   accessControl: {
     allowOrigin: '*',
@@ -19,6 +20,13 @@ new MongoRestOrm({
   },
   basePath: '/test',
   logger: 'info',
+  models: {
+   User: Joi.object().keys({
+    _id: extendedJoi.oid(),
+    client_id: extendedJoi.oid(),
+    username: Joi.string(),
+   }),
+  },
 })
   .getServer()
   .then((server) => {

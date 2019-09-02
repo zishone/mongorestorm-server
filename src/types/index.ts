@@ -1,4 +1,8 @@
 import {
+  ObjectSchema,
+  Root,
+} from '@hapi/joi';
+import {
   Application,
   Request,
 } from 'express';
@@ -6,7 +10,7 @@ import {
   MongoClientCommonOption,
   MongoClientOptions,
 } from 'mongodb';
-import { MongoManager } from '../api/helpers/MongoManager';
+import { MongoManager } from '../api/helpers/mongo-manager';
 
 export interface AppContext {
   app: Application;
@@ -36,4 +40,8 @@ export interface MongoRestOrmConfig {
   basePath?: string;
   logger?: string;
   models?: any;
+}
+
+export interface ExtendedJoi extends Root {
+  oid: () => ObjectSchema;
 }

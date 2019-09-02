@@ -1,7 +1,16 @@
+import { convert } from 'joi-openapi';
 import * as oasTools from 'oas-tools';
 import { join } from 'path';
 import { AppContext } from '../../types';
 import oasSpec from '../openapi';
+
+const addSchemas = (context: AppContext, spec: any): void => {
+  for (const model in context.config.models) {
+    if (context.config.models.hasOwnProperty(model)) {
+      spec.components.schemas[model] = convert(context.config.models[model]);
+    }
+  }
+};
 
 const setServers = (context: AppContext, spec: any): void => {
   spec.servers.push({
@@ -23,6 +32,7 @@ const configureOas = async (context: AppContext): Promise<AppContext> => {
     },
   };
   oasTools.configure(oasOptions);
+  addSchemas(context, oasSpec);
   setServers(context, oasSpec);
   await new Promise((resolve, reject) => {
     oasTools.initialize(oasSpec, context.app, (error: Error) => {

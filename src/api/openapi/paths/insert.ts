@@ -35,8 +35,28 @@ const insert = {
           },
         },
       },
+      400: {
+        description: 'Fail',
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/components/schemas/FailResponse',
+            },
+          },
+        },
+      },
+      default: {
+        description: 'Error',
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/components/schemas/ErrorResponse',
+            },
+          },
+        },
+      },
     },
   },
 };
 
-export default insert;
+export { insert };
