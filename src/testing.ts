@@ -4,7 +4,7 @@ import { extendedJoi, MongoRestOrm } from '.';
 new MongoRestOrm({
   mongo: {
     uri: 'mongodb://root:password@127.0.0.1:27017/',
-    dbName: 'test',
+    dbName: 'test', // TODO: Make this part of the basePath
     clientOptions: {
       useNewUrlParser: true,
       useUnifiedTopology: true,

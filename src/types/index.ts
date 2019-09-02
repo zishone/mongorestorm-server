@@ -20,6 +20,9 @@ export interface AppContext {
 
 export interface Request extends Request {
   context: AppContext;
+  swagger: {
+    params: any;
+  };
 }
 
 export interface MongoRestOrmConfig {

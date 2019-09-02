@@ -1,19 +1,13 @@
-import { JoiObject } from '@hapi/joi';
-import { convert } from 'joi-openapi';
 import { extendedJoi } from '../../utils/extended-joi';
+import { Model } from './model';
 
-class FailResponse {
-  private schema: JoiObject;
-
+class FailResponse extends Model {
   constructor() {
-    this.schema = extendedJoi.object().keys({
+    const schema = extendedJoi.object().keys({
       status: extendedJoi.string().valid('fail'),
       data: extendedJoi.object(),
     });
-  }
-
-  public getOasSchema() {
-    return convert(this.schema);
+    super(schema);
   }
 }
 
