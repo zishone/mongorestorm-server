@@ -1,11 +1,11 @@
-import { extendedJoi } from '../../utils/extended-joi';
+import { mJoi } from '../../utils/m-joi';
 import { Model } from './model';
 
 class FailResponse extends Model {
   constructor() {
-    const schema = extendedJoi.object().keys({
-      status: extendedJoi.string().valid('fail'),
-      data: extendedJoi.object(),
+    const schema = mJoi.object().keys({
+      status: mJoi.string().valid('fail'),
+      data: mJoi.object(),
     });
     super(schema);
   }

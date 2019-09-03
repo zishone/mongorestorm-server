@@ -1,56 +1,30 @@
 import * as debug from 'debug';
+import * as express from 'express';
 import { Application } from 'express';
+import { Server } from 'http';
 import { init } from './app';
 import { MongoRestOrmConfig } from './types';
-import { extendedJoi } from './utils/extended-joi';
+import { mJoi } from './utils/m-joi';
 
-// TODO: Find a way to extend e.Application
 class MongoRestOrmServer {
-  public static async createServer(app: Application, config: MongoRestOrmConfig) {
+  private app!: Application;
+
+  constructor(private config: MongoRestOrmConfig) {
     debug.enable(`*mongorestorm:${config.logger}*`);
-    const mrosApp = await init(app, config);
-    return new MongoRestOrmServer(mrosApp);
   }
 
-  constructor(
-    private app: Application,
-  ) {}
-
-  public getApp(): Application {
+  public async applyMiddleware(app: Application): Promise<Application> {
+    this.app = await init(app, this.config);
     return this.app;
   }
 
-  // TODO: Allow method specific middlewares to be added.
-  public addMiddlewares(...middlewares: any[]): void {
-    for (const middleware of middlewares) {
-      if (Array.isArray(middleware)) {
-        const path = middleware.shift();
-        this.app.use(path, ...middleware);
-      } else {
-        this.app.use(middleware);
-      }
-    }
-  }
-
-  public startServer(port: number, hostname?: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const callback = (error: Error) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve();
-        }
-      };
-      if (hostname) {
-        this.app.listen(port, hostname, callback);
-      } else {
-        this.app.listen(port, callback);
-      }
-    });
+  public async listen(handle: any, callback?: () => void): Promise<Server> {
+    this.app = await this.applyMiddleware(express());
+    return this.app.listen(handle, callback);
   }
 }
 
 export {
-  extendedJoi,
+  mJoi,
   MongoRestOrmServer,
 };

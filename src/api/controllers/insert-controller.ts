@@ -1,6 +1,8 @@
-import { Response } from 'express';
-import { Request } from '../../types';
-import { extendedJoi } from '../../utils/extended-joi';
+import {
+  Request,
+  Response,
+} from '../../types';
+import { mJoi } from '../../utils/m-joi';
 import { Logger } from '../helpers/Logger';
 
 const log = new Logger(__filename);
@@ -12,33 +14,25 @@ const insert = async (req: Request, res: Response , next: any) => {
     const data = Array.isArray(body.data) ? body.data : [ body.data ];
     const options = body.options;
 
-    if (req.context.config.models[collectionName]) {
-      const validationResult = extendedJoi.array().items(req.context.config.models[collectionName]).validate(data);
+    if (req.context.config.schemas[collectionName]) {
+      const validationResult = mJoi.validateMany(req.context.config.schemas[collectionName], data);
       if (validationResult.error) {
         throw validationResult.error;
       }
     }
 
+    // TODO: Do something about this.
     if (req.context.mongo) {
       const insertResult = await req.context.mongo.insert(collectionName, data, options);
-      res.status(200).send({
-        status: 'success',
-        data: insertResult,
-      });
+      res.jsend.success(insertResult);
     }
   } catch (error) {
     switch (error.name) {
       case 'ValidationError':
-        res.status(400).send({
-          status: 'fail',
-          data: error,
-        });
+        res.jsend.fail(error);
         break;
       default:
-        res.status(500).send({
-          status: 'error',
-          message: error.message,
-        });
+        res.jsend.error(error);
         break;
     }
   }

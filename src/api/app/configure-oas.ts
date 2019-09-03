@@ -5,16 +5,16 @@ import { AppContext } from '../../types';
 import oasSpec from '../openapi';
 
 const addSchemas = (context: AppContext, spec: any): void => {
-  for (const model in context.config.models) {
-    if (context.config.models.hasOwnProperty(model)) {
-      spec.components.schemas[model] = convert(context.config.models[model]);
+  for (const model in context.config.schemas) {
+    if (context.config.schemas.hasOwnProperty(model)) {
+      spec.components.schemas[model] = convert(context.config.schemas[model]);
     }
   }
 };
 
 const setServers = (context: AppContext, spec: any): void => {
   spec.servers.push({
-    url: `${context.config.server.host}${context.config.basePath}`,
+    url: `${context.config.server.host}${context.config.basePath || ''}/${context.config.mongo.dbName}`,
   });
 };
 

@@ -14,6 +14,7 @@ const init = async (app: Application, config: MongoRestOrmConfig) => {
   context = await composeMiddlewares(context);
   context = await configureOas(context);
   context = await connectMongo(context);
+  app.emit('ready');
   return context.app;
 };
 
