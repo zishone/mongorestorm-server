@@ -8,19 +8,19 @@ class Logger {
   }
 
   public debug(formatter: any, ...args: any[]) {
-    debug(`${new Date().toISOString()} mongorestorm:debug:${this.component}:`)(formatter, args);
+    debug(`${new Date().toISOString()} mongorestorm:debug:${this.component}:`)(formatter, ...args);
   }
 
   public info(formatter: any, ...args: any[]) {
-    debug(`${new Date().toISOString()} mongorestorm:info:${this.component}:`)(formatter, args);
+    debug(`${new Date().toISOString()} mongorestorm:info:${this.component}:`)(formatter, ...args);
   }
 
   public warn(formatter: any, ...args: any[]) {
-    debug(`${new Date().toISOString()} mongorestorm:warn:${this.component}:`)(formatter, args);
+    debug(`${new Date().toISOString()} mongorestorm:warn:${this.component}:`)(formatter, ...args);
   }
 
   public error(formatter: any, ...args: any[]) {
-    debug(`${new Date().toISOString()} mongorestorm:error:${this.component}:`)(formatter, args);
+    debug(`${new Date().toISOString()} mongorestorm:error:${this.component}:`)(formatter, ...args);
   }
 }
 

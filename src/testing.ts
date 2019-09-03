@@ -1,7 +1,8 @@
 import * as Joi from '@hapi/joi';
-import { extendedJoi, MongoRestOrm } from '.';
+import * as express from 'express';
+import { extendedJoi, MongoRestOrmServer } from '.';
 
-new MongoRestOrm({
+MongoRestOrmServer.createServer(express(), {
   mongo: {
     uri: 'mongodb://root:password@127.0.0.1:27017/',
     dbName: 'test', // TODO: Make this part of the basePath
@@ -28,9 +29,9 @@ new MongoRestOrm({
    }),
   },
 })
-  .getServer()
   .then((server) => {
-    server.listen(3000, () => {
-      console.log('INFO: Accepting connections at http://localhost:', 3000);
-    });
+    server.startServer(3000, '127.0.0.1')
+      .then(() => {
+        console.log('INFO: Accepting connections at http://localhost:', 3000);
+      });
   });

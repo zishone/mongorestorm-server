@@ -4,6 +4,7 @@ import {
   Root,
   string,
 } from '@hapi/joi';
+import * as Joi from '@hapi/joi';
 import { ExtendedJoi } from '../types';
 
 const extendedJoi: ExtendedJoi = extend({

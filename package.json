@@ -1,5 +1,5 @@
 {
-  "name": "mongorestorm",
+  "name": "mongorestorm-server",
   "version": "0.0.1",
   "description": "A REST server for commonly used mongodb-driver operations.",
   "main": "dist/index.js",

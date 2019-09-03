@@ -1,13 +1,13 @@
-import * as express from 'express';
+import { Application } from 'express';
 import {
   AppContext,
   MongoRestOrmConfig,
 } from '../../types';
 
 // TODO: Set config defaults here
-const createContext = async (config: MongoRestOrmConfig): Promise<AppContext> => {
+const createContext = async (app: Application, config: MongoRestOrmConfig): Promise<AppContext> => {
   const context = {
-    app: express(),
+    app,
     config,
   };
   return context;
