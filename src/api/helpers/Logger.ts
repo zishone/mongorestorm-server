@@ -1,27 +1,30 @@
-import * as debug from 'debug';
+import debug = require('debug');
+// TODO: Move logger outside of api
+export class Logger {
+  private filename: string;
 
-class Logger {
-  private component?: string;
-
-  constructor(filename: string) {
-    this.component = filename.split('.')[0].split('/').pop();
-  }
-
-  public debug(formatter: any, ...args: any[]) {
-    debug(`${new Date().toISOString()} mongorestorm:debug:${this.component}:`)(formatter, ...args);
+  constructor(private component: string, filename: string) {
+    this.filename = filename.split('.')[0].split('/').pop() || '';
   }
 
   public info(formatter: any, ...args: any[]) {
-    debug(`${new Date().toISOString()} mongorestorm:info:${this.component}:`)(formatter, ...args);
+    debug(`mongorestorm-server:info:${new Date().toISOString()}:`)(formatter, ...args);
   }
 
   public warn(formatter: any, ...args: any[]) {
-    debug(`${new Date().toISOString()} mongorestorm:warn:${this.component}:`)(formatter, ...args);
+    debug(`mongorestorm-server:warn:${new Date().toISOString()}:`)(formatter, ...args);
   }
 
   public error(formatter: any, ...args: any[]) {
-    debug(`${new Date().toISOString()} mongorestorm:error:${this.component}:`)(formatter, ...args);
+    debug(`mongorestorm-server:error:${new Date().toISOString()}:`)(formatter, ...args);
+  }
+
+  public begun(functionName: string, ...args: any[]) {
+    this.info(`${this.component}.${this.filename}.${functionName}.begun %O`, ...args);
+  }
+
+  public failed(functionName: string, ...args: any[]) {
+    this.info(`${this.component}.${this.filename}.${functionName}.failed %O`, ...args);
+    this.error(`${this.component}.${this.filename}.${functionName}.failed %O`, ...args);
   }
 }
-
-export { Logger };

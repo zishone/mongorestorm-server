@@ -1,13 +1,17 @@
-import { ErrorResponse } from '../../models/error-response';
-import { FailResponse } from '../../models/fail-response';
-import { InsertRequest } from '../../models/insert-request';
-import { InsertResponse } from '../../models/insert-response';
+import {
+  GenericModel,
+  InsertManyRequest,
+} from '../../models';
+import {
+  createErrorSchema,
+  createFailSchema,
+  createSuccessSchema,
+} from '../../utils';
 
-const schemas = {
-  InsertRequest: new InsertRequest().getOasSchema(),
-  InsertResponse: new InsertResponse().getOasSchema(),
-  FailResponse: new FailResponse().getOasSchema(),
-  ErrorResponse: new ErrorResponse().getOasSchema(),
+export const schemas: any = {
+  generic: new GenericModel().getOasSchema(),
+  genericSuccessResponse: createSuccessSchema('#/components/schemas/generic'),
+  genericFailResponse: createFailSchema('#/components/schemas/generic'),
+  genericErrorResponse: createErrorSchema('#/components/schemas/generic'),
+  insertManyRequest: new InsertManyRequest().getOasSchema(),
 };
-
-export { schemas };

@@ -1,39 +1,34 @@
-import * as Joi from '@hapi/joi';
-import * as express from 'express';
-import { mJoi, MongoRestOrmServer } from '.';
+import { MongoRestOrmServer } from '.';
 
-const app = express();
+const port = 3000;
 
-const server = new MongoRestOrmServer({
-  mongo: {
-    uri: 'mongodb://root:password@127.0.0.1:27017/',
-    dbName: 'test', // TODO: Make this part of the basePath
+new MongoRestOrmServer({
+  mongoConfig: {
+    mongoUri: 'mongodb://root:password@127.0.0.1:27017/',
+    dbName: 'test',
     clientOptions: {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     },
   },
-  server: {
-    host: 'http://localhost:3000',
+  corsConfig: {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   },
-  accessControl: {
-    allowOrigin: '*',
-    allowMethods: 'GET,POST,PUT,DELETE,HEAD,OPTIONS',
-    allowCredentials: 'false',
+  apiDocsConfig: {
+    apiDocs: '/api-docs',
+    apiDocsPrefix: '',
+    swaggerUi: '/docs',
+    swaggerUiPrefix: '',
   },
-  basePath: '/test',
-  logger: 'info',
-  schemas: {
-   User: mJoi.object().keys({
-    _id: mJoi.oid(),
-    client_id: mJoi.oid(),
-    username: mJoi.string(),
-   }),
+  logLevel: 'info',
+  serverConfig: {
+    ssl: false,
+    host: 'localhost',
+    port,
+    basePath: '/api',
   },
-});
-
-server.applyMiddleware(app);
-
-app.listen({ port: 3000 }, () => {
-  console.log('INFO: Accepting connections at http://localhost:', 3000);
-});
+  schemas: {},
+}).startServer({ port });

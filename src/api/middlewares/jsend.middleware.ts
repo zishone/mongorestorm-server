@@ -1,11 +1,11 @@
 import {
   NextFunction,
   Request,
-  RequestHandler,
+  Response,
 } from 'express';
 
-const setJsend = (): RequestHandler => {
-  return (req: Request, res: any, next: NextFunction) => {
+export const jsendMiddleware = (): any => {
+  return (_: Request, res: Response, next: NextFunction): void => {
     res.jsend = {
       success: (data: any, statusCode?: number): void => {
         res
@@ -28,14 +28,10 @@ const setJsend = (): RequestHandler => {
           .status(statusCode || 500)
           .send({
             status: 'error',
-            data: error,
             message: error.message,
-            code: error.name,
           });
       },
     };
     next();
   };
 };
-
-export { setJsend };

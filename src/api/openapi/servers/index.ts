@@ -1,3 +1,1 @@
-const servers: any[] = [];
-
-export { servers };
+export const servers: any[] = [];

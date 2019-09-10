@@ -1,18 +1,18 @@
 import { paths } from './paths';
+import { responses } from './responses';
 import { schemas } from './schemas';
 import { servers } from './servers';
 
-const oasSpec = {
+export const spec = {
   openapi: '3.0.0',
   info: {
     version: '0.0.1',
-    title: 'MongoRestorm',
+    title: 'oas-express-starter',
   },
   paths,
   servers,
   components: {
+    responses,
     schemas,
   },
 };
-
-export default oasSpec;

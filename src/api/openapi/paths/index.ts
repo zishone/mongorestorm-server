@@ -1,7 +1,5 @@
-import { insert } from './insert';
+import collections = require('./collections');
 
-const paths = {
-  '/collections/{collectionName}/insert': insert,
+export const paths = {
+  '/collections/{collectionName}': collections.insertMany,
 };
-
-export { paths };
