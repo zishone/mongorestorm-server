@@ -58,14 +58,10 @@ export class App {
       docs: this.config.apiDocsConfig,
       ignoreUnknownFormats: true,
     });
-    const {
-      ssl,
-      host,
-      port,
-      basePath,
-    } = this.config.serverConfig!;
+    spec.info.title = `${this.config.mongoConfig!.dbName} (mongorestorm-server)`;
+    spec.info.version = this.config.version!;
     spec.servers.push({
-      url: `${basePath}/dbs/${this.config.mongoConfig!.dbName}`,
+      url: `${this.config.basePath}/dbs/${this.config.mongoConfig!.dbName}`,
     });
     for (const key in this.config.schemas) {
       if (this.config.schemas.hasOwnProperty(key)) {

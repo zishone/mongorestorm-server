@@ -1,5 +1,5 @@
 import debug = require('debug');
-// TODO: Move logger outside of api
+
 export class Logger {
   private filename: string;
 

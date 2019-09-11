@@ -24,11 +24,7 @@ new MongoRestOrmServer({
     swaggerUiPrefix: '',
   },
   logLevel: 'info',
-  serverConfig: {
-    ssl: false,
-    host: 'localhost',
-    port,
-    basePath: '/api',
-  },
+  basePath: '/api',
+  version: '1.0.0',
   schemas: {},
 }).startServer({ port });

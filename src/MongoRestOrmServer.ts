@@ -16,12 +16,8 @@ export interface MongoRestOrmServerConfig {
     swaggerUiPrefix?: string,
   };
   logLevel?: string;
-  serverConfig?: {
-    ssl?: boolean;
-    host?: string
-    port?: number;
-    basePath?: string;
-  };
+  basePath?: string;
+  version?: string;
   schemas?: any;
 }
 
