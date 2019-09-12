@@ -1,6 +1,4 @@
-import { createSuccessSchema } from '../../utils';
-
-export const insertMany = {
+export const _ = {
   post: {
     ['x-router-controller']: 'index',
     description: 'http://mongodb.github.io/node-mongodb-native/3.2/api/Collection.html#insertMany',
@@ -17,7 +15,7 @@ export const insertMany = {
     ],
     requestBody: {
       content: {
-        'application/json': {
+        ['application/json']: {
           schema: {
             $ref: '#/components/schemas/insertManyRequest',
           },
@@ -30,7 +28,7 @@ export const insertMany = {
       ['2XX']: {
         description: 'http://mongodb.github.io/node-mongodb-native/3.2/api/Collection.html#~insertWriteOpResult',
         content: {
-          'application/json': {
+          ['application/json']: {
             schema: {
               $ref: '#/components/schemas/genericSuccessResponse',
             },

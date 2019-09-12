@@ -4,7 +4,7 @@ import { App } from './api/app';
 import { Logger } from './api/helpers';
 import { MongoConfig } from './api/helpers/mongo-manager';
 
-const logger = new Logger('index', __filename);
+const logger = new Logger('main', __filename);
 
 export interface MongoRestOrmServerConfig {
   mongoConfig?: MongoConfig;

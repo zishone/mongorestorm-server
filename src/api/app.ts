@@ -13,9 +13,11 @@ import {
   MongoManager,
 } from './helpers';
 import {
+  ejsonMiddleware,
   jsendMiddleware,
   mongoMiddleware,
   schemasMiddleware,
+  sseMiddleware,
 } from './middlewares';
 import { spec } from './openapi';
 
@@ -39,11 +41,13 @@ export class App {
   }
 
   private async composeMiddlewares(): Promise<void> {
-    this.app.use(mongoMiddleware(this.mongo));
-    this.app.use(schemasMiddleware(this.config.schemas));
     this.app.use(json());
     this.app.use(urlencoded({ extended: true }));
     this.app.use(cors(this.config.corsConfig));
+    this.app.use(mongoMiddleware(this.mongo));
+    this.app.use(schemasMiddleware(this.config.schemas));
+    this.app.use(ejsonMiddleware());
+    this.app.use(sseMiddleware());
     this.app.use(jsendMiddleware());
   }
 

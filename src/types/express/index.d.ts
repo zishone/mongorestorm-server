@@ -16,5 +16,7 @@ declare module 'express' {
       fail: (data: any, statusCode?: number) => void;
       error: (error: Error, statusCode?: number) => void;
     };
+    sse: (event: string, data?: any) => void;
+    ejson: (body: any) => void;
   }
 }
