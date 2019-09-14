@@ -12,9 +12,7 @@ export interface MongoRestOrmServerConfig {
   corsConfig?: CorsOptions;
   apiDocsConfig?: {
     apiDocs?: string;
-    apiDocsPrefix?: string;
     swaggerUi?: string;
-    swaggerUiPrefix?: string;
   } | null;
   authConfig?: {
     secret: string;

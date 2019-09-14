@@ -65,12 +65,17 @@
   "bugs": {
     "url": "https://github.com/zishone/mongorestorm-server/issues"
   },
+  "homepage": "https://zishone.github.io/mongorestorm-server/",
   "keywords": [
     "openapi",
     "oas",
     "express",
     "server",
-    "rest"
+    "rest",
+    "orm",
+    "mongodb",
+    "mongo",
+    "crud"
   ],
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript"

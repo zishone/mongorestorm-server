@@ -26,14 +26,10 @@ export class DefaultConfigModel extends Model {
       corsConfig: joi.object().default({}).unknown(true),
       apiDocsConfig: joi.object().keys({
         apiDocs: joi.string().default('/api-docs'),
-        apiDocsPrefix: joi.string().default(''),
         swaggerUi: joi.string().default('/docs'),
-        swaggerUiPrefix: joi.string().default(''),
       }).default({
         apiDocs: '/api-docs',
-        apiDocsPrefix: '',
         swaggerUi: '/docs',
-        swaggerUiPrefix: '',
       }).allow(null).unknown(true),
       authConfig: joi.object().keys({
         secret: joi.string().default('secret'),
