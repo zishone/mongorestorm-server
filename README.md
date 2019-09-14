@@ -101,6 +101,12 @@ mongoRestOrmServer.applyMiddleware(app);
 ```
 Way 2 will allow adding of custom express middlewares such as own authentication middlewares.
 
+## Endpoints
+All endpoints exposed by MongoRestOrm Server will be prefixed by the `basePath` that was provided in the `MongoRestOrmConfig` plus `/dbs/` plus the `mongoConfig.dbName`. Example prefix: `/basePath/dbs/dbName`
+
+To see the endpoints exposed by MongoRestOrm Server for the mongodb CRUD operations, please visit the [Wiki](https://github.com/zishone/mongorestorm-server/wiki/Endpoints).
+
+
 ## MongoDB Extended JSON
 MongoRestOrm Server serializes and deserializes the data it receives and sends using the [MongoDB Extended JSON (v2)](https://docs.mongodb.com/manual/reference/mongodb-extended-json/) specification to preserve special MongoDB types such as `ObjectID`.
 
