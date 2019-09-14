@@ -1,13 +1,8 @@
-import {
-  FindRequestModel,
-  GenericModel,
-  InsertManyRequestModel,
-  ToArrayResponseModel,
-} from '../../models';
+import { GenericModel } from '../../models';
 
 export const schemas: any = {
   generic: new GenericModel().getOasSchema(),
-  genericSuccessResponse: {
+  genericSuccess: {
     type: 'object',
     properties: {
       status: {
@@ -19,7 +14,7 @@ export const schemas: any = {
       },
     },
   },
-  genericFailResponse: {
+  genericFail: {
     type: 'object',
     properties: {
       status: {
@@ -31,7 +26,7 @@ export const schemas: any = {
       },
     },
   },
-  genericErrorResponse: {
+  genericError: {
     type: 'object',
     properties: {
       status: {
@@ -56,7 +51,4 @@ export const schemas: any = {
       },
     },
   },
-  insertManyRequest: new InsertManyRequestModel().getOasSchema(),
-  findRequest: new FindRequestModel().getOasSchema(),
-  toArrayResponse: new ToArrayResponseModel().getOasSchema(),
 };

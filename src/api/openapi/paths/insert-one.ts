@@ -1,8 +1,8 @@
 export const _ = {
   post: {
     ['x-router-controller']: 'index',
-    description: 'http://mongodb.github.io/node-mongodb-native/3.2/api/Collection.html#insertMany',
-    operationId: 'insertManyController',
+    description: 'http://mongodb.github.io/node-mongodb-native/3.2/api/Collection.html#insertOne',
+    operationId: 'insertOneController',
     parameters: [
       {
         in: 'path',
@@ -20,10 +20,7 @@ export const _ = {
             type: 'object',
             properties: {
               data: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                },
+                type: 'object',
               },
               options: {
                 type: 'object',
@@ -40,7 +37,7 @@ export const _ = {
     },
     responses: {
       ['2XX']: {
-        description: 'http://mongodb.github.io/node-mongodb-native/3.2/api/Collection.html#~insertWriteOpResult',
+        description: 'http://mongodb.github.io/node-mongodb-native/3.2/api/Collection.html#~insertOneWriteOpResult',
         content: {
           ['application/json']: {
             schema: {

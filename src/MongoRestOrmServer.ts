@@ -10,20 +10,22 @@ export interface MongoRestOrmServerConfig {
   mongoConfig?: MongoConfig;
   corsConfig?: CorsOptions;
   apiDocsConfig?: {
-    apiDocs?: string,
-    apiDocsPrefix?: string,
-    swaggerUi?: string,
-    swaggerUiPrefix?: string,
-  };
+    apiDocs?: string;
+    apiDocsPrefix?: string;
+    swaggerUi?: string;
+    swaggerUiPrefix?: string;
+  } | null;
+  authConfig?: {
+    secret: string;
+  } | null;
   logLevel?: string;
   basePath?: string;
-  version?: string;
   schemas?: any;
 }
 
 export class MongoRestOrmServer {
-  constructor(private config: MongoRestOrmServerConfig) {}
-  // TODO: Map default configurations
+  constructor(private config: MongoRestOrmServerConfig = {}) {}
+
   public async applyMiddleware(app: express.Application) {
     await new App(app).configure(this.config);
   }

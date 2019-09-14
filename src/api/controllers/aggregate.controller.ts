@@ -34,8 +34,10 @@ export const aggregateController = async (req: Request, res: Response, _: NextFu
       cursor.on('close', () => {
         res.sse('close');
         res.end();
+        logger.succeeded('aggregateController');
       });
     } catch (error) {
+      logger.failed('aggregateController', error);
       res.sse('error', error);
       res.sse('close');
       res.end();
@@ -60,8 +62,9 @@ export const aggregateToArrayController = async (req: Request, res: Response, _:
     const cursor = await req.mongo
       .collection(collectionName, model)
       .aggregate(pipeline, options);
-    const data = await cursor.toArray();
-    res.jsend.success(data);
+    const documents = await cursor.toArray();
+    res.jsend.success(documents);
+    logger.succeeded('aggregateToArrayController');
   } catch (error) {
     logger.failed('aggregateToArrayController', error);
     res.jsend.error(error);

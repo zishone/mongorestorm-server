@@ -1,8 +1,8 @@
 export const _ = {
   get: {
     ['x-router-controller']: 'index',
-    description: 'https://mongodb.github.io/node-mongodb-native/3.2/api/Collection.html#aggregate',
-    operationId: 'aggregateController',
+    description: 'https://mongodb.github.io/node-mongodb-native/3.2/api/Collection.html#distinct',
+    operationId: 'distinctController',
     parameters: [
       {
         in: 'path',
@@ -14,50 +14,7 @@ export const _ = {
       },
       {
         in: 'query',
-        name: 'pipeline',
-        required: false,
-        schema: {
-          type: 'array',
-          items: {
-            type: 'object',
-          },
-        },
-      },
-      {
-        in: 'query',
-        name: 'options',
-        required: false,
-        schema: {
-          type: 'object',
-        },
-      },
-    ],
-    responses: {
-      ['2XX']: {
-        description: 'https://mongodb.github.io/node-mongodb-native/3.2/api/AggregationCursor.html',
-        content: {
-          ['text/event-stream']: {},
-        },
-      },
-      ['4XX']: {
-        $ref: '#components/responses/genericClientError',
-      },
-      default: {
-        $ref: '#components/responses/genericServerError',
-      },
-    },
-  },
-};
-
-export const toArray = {
-  get: {
-    ['x-router-controller']: 'index',
-    description: 'https://mongodb.github.io/node-mongodb-native/3.2/api/AggregationCursor.html#toArray',
-    operationId: 'aggregateToArrayController',
-    parameters: [
-      {
-        in: 'path',
-        name: 'collectionName',
+        name: 'key',
         required: true,
         schema: {
           type: 'string',
@@ -65,7 +22,7 @@ export const toArray = {
       },
       {
         in: 'query',
-        name: 'pipeline',
+        name: 'filter',
         required: false,
         schema: {
           type: 'object',
@@ -82,7 +39,7 @@ export const toArray = {
     ],
     responses: {
       ['2XX']: {
-        description: 'object[]',
+        description: 'any[]',
         content: {
           ['application/json']: {
             schema: {
@@ -95,7 +52,7 @@ export const toArray = {
                 data: {
                   type: 'array',
                   items: {
-                    type: 'object',
+                    $ref: '#components/schemas/generic',
                   },
                 },
               },

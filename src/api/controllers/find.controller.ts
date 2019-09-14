@@ -34,8 +34,10 @@ export const findController = async (req: Request, res: Response, _: NextFunctio
       cursor.on('close', () => {
         res.sse('close');
         res.end();
+        logger.succeeded('findController');
       });
     } catch (error) {
+      logger.failed('findController', error);
       res.sse('error', error);
       res.sse('close');
       res.end();
@@ -60,8 +62,9 @@ export const findToArrayController = async (req: Request, res: Response, _: Next
     const cursor = await req.mongo
       .collection(collectionName, model)
       .find(filter, options);
-    const data = await cursor.toArray();
-    res.jsend.success(data);
+    const documents = await cursor.toArray();
+    res.jsend.success(documents);
+    logger.succeeded('findToArrayController');
   } catch (error) {
     logger.failed('findToArrayController', error);
     res.jsend.error(error);

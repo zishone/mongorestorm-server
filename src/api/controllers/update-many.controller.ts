@@ -11,25 +11,26 @@ import {
 const logger = new Logger('api.controller', __filename);
 
 /**
- * POST /collections/{collectionName}/insert-many
- * Insert Many
+ * PUT /collections/{collectionName}/update-many
+ * Update Many
  */
-export const insertManyController = async (req: Request, res: Response, _: NextFunction) => {
+export const updateManyController = async (req: Request, res: Response, _: NextFunction) => {
   try {
-    logger.begun('insertManyController');
+    logger.begun('updateManyController');
     const collectionName = req.swagger.params.collectionName.value;
     const {
-      data,
+      filter,
+      update,
       options,
     } = req.swagger.params.body.value;
     const model = req.schemas[collectionName] ? new Model(req.schemas[collectionName]) : undefined;
-    const insertManyResult = await req.mongo
+    const updateManyResult = await req.mongo
       .collection(collectionName, model)
-      .insertMany(data, options);
-    res.jsend.success(insertManyResult);
-    logger.succeeded('insertManyController');
+      .updateMany(filter, update, options);
+    res.jsend.success(updateManyResult);
+    logger.succeeded('updateManyController');
   } catch (error) {
-    logger.failed('insertManyController', error);
+    logger.failed('updateManyController', error);
     res.jsend.error(error);
   }
 };

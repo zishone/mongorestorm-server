@@ -16,8 +16,8 @@ export const ejsonMiddleware = (): any => {
     if (req.query.pipeline) {
       req.query.pipeline = EJSON.parse(req.query.pipeline);
     }
-    res.ejson = (body: any) => {
-      res.send(EJSON.serialize(body));
+    res.ejson = (body?: any): void => {
+      res.send(body ? EJSON.serialize(body) : null);
     };
     next();
   };

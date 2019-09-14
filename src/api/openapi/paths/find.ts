@@ -31,7 +31,7 @@ export const _ = {
     ],
     responses: {
       ['2XX']: {
-        description: 'Success',
+        description: 'http://mongodb.github.io/node-mongodb-native/3.2/api/Cursor.html',
         content: {
           ['text/event-stream']: {},
         },
@@ -79,7 +79,7 @@ export const toArray = {
     ],
     responses: {
       ['2XX']: {
-        description: 'Success',
+        description: 'object[]',
         content: {
           ['application/json']: {
             schema: {

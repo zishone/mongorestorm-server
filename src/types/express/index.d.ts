@@ -8,6 +8,7 @@ declare module 'express' {
     swagger: {
       params: any;
     };
+    authPaload: any;
   }
 
   interface Response {
@@ -16,7 +17,7 @@ declare module 'express' {
       fail: (data: any, statusCode?: number) => void;
       error: (error: Error, statusCode?: number) => void;
     };
+    ejson: (body?: any) => void;
     sse: (event: string, data?: any) => void;
-    ejson: (body: any) => void;
   }
 }

@@ -13,12 +13,14 @@ import {
   MongoManager,
 } from './helpers';
 import {
+  authMiddleware,
   ejsonMiddleware,
   jsendMiddleware,
   mongoMiddleware,
   schemasMiddleware,
   sseMiddleware,
 } from './middlewares';
+import { DefaultConfigModel } from './models';
 import { spec } from './openapi';
 
 export class App {
@@ -28,7 +30,7 @@ export class App {
   constructor(private app: Application) {}
 
   public async configure(config: MongoRestOrmServerConfig) {
-    this.config = config;
+    this.config = await new DefaultConfigModel().validateOne(config);
     await this.configureLogger();
     await this.connectMongo();
     await this.composeMiddlewares();
@@ -41,6 +43,9 @@ export class App {
   }
 
   private async composeMiddlewares(): Promise<void> {
+    if (this.config.authConfig) {
+      this.app.use(authMiddleware(this.config.authConfig.secret));
+    }
     this.app.use(json());
     this.app.use(urlencoded({ extended: true }));
     this.app.use(cors(this.config.corsConfig));
@@ -56,14 +61,13 @@ export class App {
       controllers: join(__dirname, 'controllers'),
       checkControllers: true,
       loglevel: this.config.logLevel,
-      strict: true,
+      strict: false,
       router: true,
       validator: true,
       docs: this.config.apiDocsConfig,
       ignoreUnknownFormats: true,
     });
     spec.info.title = `${this.config.mongoConfig!.dbName} (mongorestorm-server)`;
-    spec.info.version = this.config.version!;
     spec.servers.push({
       url: `${this.config.basePath}/dbs/${this.config.mongoConfig!.dbName}`,
     });

@@ -19,7 +19,7 @@ export const sseMiddleware = (): any => {
       }
       res.write(`id: ${messageId}\n`);
       res.write(`event: ${event}\n`);
-      res.write(`data: ${data ? EJSON.stringify(data) : 'null'}\n\n`);
+      res.write(`data: ${data ? EJSON.stringify(data) : null}\n\n`);
       messageId++;
     };
     next();
