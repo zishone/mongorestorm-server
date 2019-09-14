@@ -52,6 +52,7 @@ const config = {
   },
 };
 ```
+
 | MongoRestOrmServerConfig      | Type   | Description | Default                    |
 |------------------------------ |------- |------------ |--------------------------- |
 | mongoConfig                   | object | MongoDB Server connection configurations.            | `{ mongoUri: 'mongodb://127.0.0.1:27017/', dbName: 'test', clientOptions: { useNewUrlParser: true, useUnifiedTopology: true } }` |
@@ -98,17 +99,19 @@ app.on('ready', () => {
 
 mongoRestOrmServer.applyMiddleware(app);
 ```
-Way 2 will a allow adding of custom express middlewares such as own authentication middlewares.
+Way 2 will allow adding of custom express middlewares such as own authentication middlewares.
 
 ## MongoDB Extended JSON
-MongoRestOrm Server serializes and deserializes the data it receives and sends using the [MongoDB Extended JSON (v2)](https://docs.mongodb.com/manual/reference/mongodb-extended-json/) to preserve special MongoDB types such as `ObjectID`.
+MongoRestOrm Server serializes and deserializes the data it receives and sends using the [MongoDB Extended JSON (v2)](https://docs.mongodb.com/manual/reference/mongodb-extended-json/) specification to preserve special MongoDB types such as `ObjectID`.
 
 **Comparisons**
+
 | JSON                                  | EJSON                                           | BSON                                            |
 |-------------------------------------- |------------------------------------------------ |------------------------------------------------ |
 | `{ _id: 'aaaaaaaaaaaaaaaaaaaaaaaa' }` | `{ _id: { $oid: 'aaaaaaaaaaaaaaaaaaaaaaaa' } }` | `{ _id: ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa') }` |
 
 Packages deserialize the EJSON to a plain jsonn/dict/struct with native/BSON types.
+
 | Language   | Package |
 |----------- |-------- |
 | Javascript | [bson](https://www.npmjs.com/package/bson) |
