@@ -4,8 +4,8 @@ import { Model } from '../helpers';
 export class GenericModel extends Model {
   constructor() {
     const schema = joi.alternatives().try(
+      joi.object().allow(null),
       joi.boolean(),
-      joi.object(),
       joi.number(),
       joi.string(),
     );

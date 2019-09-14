@@ -11,6 +11,7 @@ export const schemas: any = {
       },
       data: {
         $ref: '#/components/schemas/generic',
+        nullable: true,
       },
     },
   },
@@ -23,6 +24,7 @@ export const schemas: any = {
       },
       data: {
         $ref: '#/components/schemas/generic',
+        nullable: true,
       },
     },
   },
@@ -43,11 +45,13 @@ export const schemas: any = {
           },
           {
             type: 'string',
+            nullable: true,
           },
         ],
       },
       data: {
         $ref: '#/components/schemas/generic',
+        nullable: true,
       },
     },
   },

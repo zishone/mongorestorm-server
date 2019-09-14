@@ -43,9 +43,6 @@ export class App {
   }
 
   private async composeMiddlewares(): Promise<void> {
-    if (this.config.authConfig) {
-      this.app.use(authMiddleware(this.config.authConfig.secret));
-    }
     this.app.use(json());
     this.app.use(urlencoded({ extended: true }));
     this.app.use(cors(this.config.corsConfig));
@@ -54,6 +51,9 @@ export class App {
     this.app.use(ejsonMiddleware());
     this.app.use(sseMiddleware());
     this.app.use(jsendMiddleware());
+    if (this.config.authConfig) {
+      this.app.use(authMiddleware(this.config.authConfig.secret));
+    }
   }
 
   private async configureOas(): Promise<void> {
@@ -61,7 +61,7 @@ export class App {
       controllers: join(__dirname, 'controllers'),
       checkControllers: true,
       loglevel: this.config.logLevel,
-      strict: false,
+      strict: true,
       router: true,
       validator: true,
       docs: this.config.apiDocsConfig,

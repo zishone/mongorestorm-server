@@ -1,5 +1,6 @@
 import { CorsOptions } from 'cors';
 import express = require('express');
+import { Server } from 'http';
 import { App } from './api/app';
 import { Logger } from './api/helpers';
 import { MongoConfig } from './api/helpers/mongo-manager';
@@ -24,6 +25,8 @@ export interface MongoRestOrmServerConfig {
 }
 
 export class MongoRestOrmServer {
+  private server!: Server;
+
   constructor(private config: MongoRestOrmServerConfig = {}) {}
 
   public async applyMiddleware(app: express.Application) {
@@ -33,11 +36,15 @@ export class MongoRestOrmServer {
   public async startServer(handler: any) {
     const app = express();
     app.on('ready', () => {
-      app.listen(handler, () => {
+      this.server = app.listen(handler, () => {
         logger.info('Accepting connections at port: %d', handler.port);
       });
     });
-    await new App(app).configure(this.config);
+    await this.applyMiddleware(app);
     return app;
+  }
+
+  public async stopServer() {
+    this.server.close();
   }
 }
