@@ -7,7 +7,7 @@ import {
 } from 'express';
 import oasTools = require('oas-tools');
 import { join } from 'path';
-import { MongoRestOrmServerConfig } from '../MongoRestOrmServer';
+import { MongoRestOrmServerConfig } from '../mongorestorm-server';
 import {
   Model,
   MongoManager,
