@@ -1,0 +1,536 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>mongorestorm-server</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">mongorestorm-server</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> mongorestorm-server</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#mongorestorm-server" id="mongorestorm-server" style="color: inherit; text-decoration: none;">
+					<h1>mongorestorm-server</h1>
+				</a>
+				<p><a href="https://www.npmjs.com/package/mongorestorm-server"><img src="https://img.shields.io/npm/v/mongorestorm-server" alt="NPM"></a> <a href="https://travis-ci.org/zishone/mongorestorm-server"><img src="https://travis-ci.org/zishone/mongorestorm-server.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/zishone/mongorestorm-server?branch=master"><img src="https://coveralls.io/repos/github/zishone/mongorestorm-server/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://github.com/zishone/mongorestorm-server/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/mongorestorm-server" alt="License"></a></p>
+				<p>A REST Server abstraction of the commonly used <a href="https://www.npmjs.com/package/mongodb">mongodb@3.2.1</a> CRUD operations with schema definitions using <a href="https://www.npmjs.com/package/@hapi/joi">@hapi/joi</a> for data validations.</p>
+				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+					<h2>Getting Started</h2>
+				</a>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h3>Installation</h3>
+				</a>
+				<pre><code class="language-shell"><span class="hljs-meta">$</span><span class="bash"> npm i mongorestorm-server</span></code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h3>Usage</h3>
+				</a>
+				<a href="#1-import-mongorestorm-server" id="1-import-mongorestorm-server" style="color: inherit; text-decoration: none;">
+					<h4>1. Import mongorestorm-server</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { MongoRestOrmServer } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongorestorm-server'</span>);</code></pre>
+				<a href="#2-define-mongorestormserverconfig" id="2-define-mongorestormserverconfig" style="color: inherit; text-decoration: none;">
+					<h4>2. Define MongoRestOrmServerConfig</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> joi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@hapi/joi'</span>);
+
+<span class="hljs-keyword">const</span> config = {
+  <span class="hljs-attr">mongoConfig</span>: {
+    <span class="hljs-attr">mongoUri</span>: <span class="hljs-string">'mongodb://127.0.0.1:27017/'</span>,
+    <span class="hljs-attr">dbName</span>: <span class="hljs-string">'test'</span>,
+    <span class="hljs-attr">clientOptions</span>: {
+      <span class="hljs-attr">useNewUrlParser</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">useUnifiedTopology</span>: <span class="hljs-literal">true</span>,
+    },
+    <span class="hljs-attr">dbOptions</span>: {},
+  },
+  <span class="hljs-attr">corsConfig</span>: {
+    <span class="hljs-attr">origin</span>: <span class="hljs-string">'*'</span>,
+    <span class="hljs-attr">methods</span>: <span class="hljs-string">'GET,HEAD,PUT,PATCH,POST,DELETE'</span>,
+    <span class="hljs-attr">preflightContinue</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">optionsSuccessStatus</span>: <span class="hljs-number">204</span>,
+  },
+  <span class="hljs-attr">apiDocsConfig</span>: {
+    <span class="hljs-attr">apiDocs</span>: <span class="hljs-string">'/api-docs'</span>,
+    <span class="hljs-attr">swaggerUi</span>: <span class="hljs-string">'/docs'</span>,
+  },
+  <span class="hljs-attr">authConfig</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">logLevel</span>: <span class="hljs-string">'info'</span>,
+  <span class="hljs-attr">basePath</span>: <span class="hljs-string">'/api'</span>,
+  <span class="hljs-attr">schemas</span>: {
+    <span class="hljs-attr">userCollection</span>: joi.object().keys({
+      <span class="hljs-attr">_id</span>: joi.object().keys({
+        <span class="hljs-attr">$oid</span>: joi.string().min(<span class="hljs-number">24</span>).hex(),
+      }),
+      <span class="hljs-attr">username</span>: joi.string().required(),
+      <span class="hljs-attr">password</span>: joi.string().required(),
+    }),
+  },
+};</code></pre>
+				<table>
+					<thead>
+						<tr>
+							<th>MongoRestOrmServerConfig</th>
+							<th>Type</th>
+							<th>Description</th>
+							<th>Default</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>mongoConfig</td>
+							<td>object</td>
+							<td>MongoDB Server connection configurations.</td>
+							<td><code>{ mongoUri: &#39;mongodb://127.0.0.1:27017/&#39;, dbName: &#39;test&#39;, clientOptions: { useNewUrlParser: true, useUnifiedTopology: true } }</code></td>
+						</tr>
+						<tr>
+							<td>mongoConfig.mongoUri</td>
+							<td>string</td>
+							<td>MongoDB Server connection string.</td>
+							<td><code>&#39;mongodb://127.0.0.1:27017/&#39;</code></td>
+						</tr>
+						<tr>
+							<td>mongoConfig.dbName</td>
+							<td>string</td>
+							<td>Database name.</td>
+							<td><code>&#39;test&#39;</code></td>
+						</tr>
+						<tr>
+							<td>mongoConfig.clientOptions</td>
+							<td>object</td>
+							<td>Please refer to: <a href="http://mongodb.github.io/node-mongodb-native/3.2/api/MongoClient.html#.connect">MongoClientOptions</a></td>
+							<td><code>{ useNewUrlParser: true, useUnifiedTopology: true }</code></td>
+						</tr>
+						<tr>
+							<td>mongoConfig.dbOptions</td>
+							<td>object</td>
+							<td>Please refer to: <a href="http://mongodb.github.io/node-mongodb-native/3.2/api/MongoClient.html#db">MongoClientCommonOption</a></td>
+							<td><code>{}</code></td>
+						</tr>
+						<tr>
+							<td>corsConfig</td>
+							<td>object</td>
+							<td>Please refer to: <a href="https://www.npmjs.com/package/cors#configuration-options">CorsOptions</a></td>
+							<td><code>{ origin: &#39;*&#39;, methods: &#39;GET,HEAD,PUT,PATCH,POST,DELETE&#39;, preflightContinue: false, optionsSuccessStatus: 204 }</code></td>
+						</tr>
+						<tr>
+							<td>apiDocsConfig</td>
+							<td>string</td>
+							<td>MongoRestOrm Server uses the OpenAPI 3.0 specification to document and visualize it&#39;s API. Use <code>null</code> to turn off docs.</td>
+							<td><code>{ apiDocs: &#39;/api-docs&#39;, swaggerUi: &#39;/docs&#39; }</code></td>
+						</tr>
+						<tr>
+							<td>apiDocsConfig.apiDocs</td>
+							<td>string</td>
+							<td>Path to access OpenAPI 3.0 specification JSON.</td>
+							<td><code>&#39;/api-docs&#39;</code></td>
+						</tr>
+						<tr>
+							<td>apiDocsConfig.swaggerUi</td>
+							<td>string</td>
+							<td>Path to access OpenAPI 3.0 specification Swagger UI.</td>
+							<td><code>&#39;/docs&#39;</code></td>
+						</tr>
+						<tr>
+							<td>authConfig</td>
+							<td>object</td>
+							<td>Configurations for built-in authentication.</td>
+							<td><code>null</code></td>
+						</tr>
+						<tr>
+							<td>authConfig.secret</td>
+							<td>string</td>
+							<td>Secret to be used for validating Bearer token passed in the <code>Authorization</code> header.</td>
+							<td><code>&#39;secret&#39;</code></td>
+						</tr>
+						<tr>
+							<td>logLevel</td>
+							<td>string</td>
+							<td>Log level of the application. Log levels: <code>info</code>, <code>warn</code>, <code>error</code>, and <code>debug</code>. Use <code>custom</code> to turn off logging.</td>
+							<td><code>&#39;info&#39;</code></td>
+						</tr>
+						<tr>
+							<td>basePath</td>
+							<td>string</td>
+							<td>Prefix path of the MongoRestOrm Server enpoints.</td>
+							<td><code>&#39;&#39;</code></td>
+						</tr>
+						<tr>
+							<td>schemas</td>
+							<td>string</td>
+							<td>Define database schema using @hapi/joi for data validation and visualization in docs.</td>
+							<td><code>{}</code></td>
+						</tr>
+				</tbody></table>
+				<a href="#3-create-mongorestorm-server-instance" id="3-create-mongorestorm-server-instance" style="color: inherit; text-decoration: none;">
+					<h4>3. Create MongoRestOrm Server instance</h4>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> mongoRestOrmServer = <span class="hljs-keyword">new</span> MongoRestOrmServer(config);</code></pre>
+				<a href="#4-start-mongorestorm-server" id="4-start-mongorestorm-server" style="color: inherit; text-decoration: none;">
+					<h4>4. Start MongoRestOrm Server</h4>
+				</a>
+				<p>There are two ways of starting the MongoRestOrm Server.</p>
+				<p><strong>Way 1</strong></p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>;
+mongoRestOrmServer.startServer({ port });</code></pre>
+				<p><strong>Way 2</strong></p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> app = express();
+<span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>;
+
+<span class="hljs-comment">// Add custom middlewares here.</span>
+
+app.on(<span class="hljs-string">'ready'</span>, () =&gt; {
+  app.listen(port, () =&gt; {
+    logger.info(<span class="hljs-string">'Accepting connections at port: %d'</span>, port);
+  });
+});
+
+mongoRestOrmServer.applyMiddleware(app);</code></pre>
+				<p>Way 2 will allow adding of custom express middlewares such as own authentication middlewares.</p>
+				<a href="#endpoints" id="endpoints" style="color: inherit; text-decoration: none;">
+					<h2>Endpoints</h2>
+				</a>
+				<p>All endpoints exposed by MongoRestOrm Server will be prefixed by the <code>basePath</code> that was provided in the <code>MongoRestOrmConfig</code> plus <code>/dbs/</code> plus the <code>mongoConfig.dbName</code>. Example prefix: <code>/basePath/dbs/dbName</code></p>
+				<p>To see the endpoints exposed by MongoRestOrm Server for the mongodb CRUD operations, please visit the <a href="https://github.com/zishone/mongorestorm-server/wiki/Endpoints">Wiki</a>.</p>
+				<a href="#mongorestorm-client" id="mongorestorm-client" style="color: inherit; text-decoration: none;">
+					<h2>MongoRestOrm Client</h2>
+				</a>
+				<p>Comming Soon...</p>
+				<a href="#mongodb-extended-json" id="mongodb-extended-json" style="color: inherit; text-decoration: none;">
+					<h2>MongoDB Extended JSON</h2>
+				</a>
+				<p>MongoRestOrm Server serializes and deserializes the data it receives and sends using the <a href="https://docs.mongodb.com/manual/reference/mongodb-extended-json/">MongoDB Extended JSON (v2)</a> specification to preserve special MongoDB types such as <code>ObjectID</code>.</p>
+				<p><strong>Comparisons</strong></p>
+				<table>
+					<thead>
+						<tr>
+							<th>JSON</th>
+							<th>EJSON</th>
+							<th>BSON</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>{ _id: &#39;aaaaaaaaaaaaaaaaaaaaaaaa&#39; }</code></td>
+							<td><code>{ _id: { $oid: &#39;aaaaaaaaaaaaaaaaaaaaaaaa&#39; } }</code></td>
+							<td><code>{ _id: ObjectId(&#39;aaaaaaaaaaaaaaaaaaaaaaaa&#39;) }</code></td>
+						</tr>
+				</tbody></table>
+				<p>Packages that deserialize EJSON to a plain json/dict/struct with native/BSON types.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Language</th>
+							<th>Package</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>Javascript</td>
+							<td><a href="https://www.npmjs.com/package/bson">bson</a></td>
+						</tr>
+						<tr>
+							<td>Python</td>
+							<td><a href="https://pypi.org/project/pymongo/">pymongo</a></td>
+						</tr>
+						<tr>
+							<td>Go</td>
+							<td><a href="https://go.mongodb.org/mongo-driver/mongo/">gomongo</a></td>
+						</tr>
+				</tbody></table>
+				<a href="#recommendations" id="recommendations" style="color: inherit; text-decoration: none;">
+					<h2>Recommendations</h2>
+				</a>
+				<p>Usage of this package is only recommended for applications with a microservice architecture and should only have communications with other microservices within the application. Exposing the API to the client might cause some security issues.</p>
+				<a href="#authors" id="authors" style="color: inherit; text-decoration: none;">
+					<h2>Authors</h2>
+				</a>
+				<ul>
+					<li><strong>Zishran Julbert Garces</strong></li>
+				</ul>
+				<p>See also the list of <a href="https://github.com/zishone/mongorestorm-server/contributors">contributors</a> who participated in this project.</p>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p>This project is licensed under the MIT License - see the <a href="https://github.com/zishone/mongorestorm-server/blob/master/LICENSE">LICENSE</a> file for details.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_app_.html">"api/app"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_aggregate_controller_.html">"api/controllers/aggregate.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_count_documents_controller_.html">"api/controllers/count-<wbr>documents.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_delete_many_controller_.html">"api/controllers/delete-<wbr>many.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_delete_one_controller_.html">"api/controllers/delete-<wbr>one.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_distinct_controller_.html">"api/controllers/distinct.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_find_one_controller_.html">"api/controllers/find-<wbr>one.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_find_controller_.html">"api/controllers/find.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_index_.html">"api/controllers/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_insert_many_controller_.html">"api/controllers/insert-<wbr>many.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_insert_one_controller_.html">"api/controllers/insert-<wbr>one.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_update_many_controller_.html">"api/controllers/update-<wbr>many.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_controllers_update_one_controller_.html">"api/controllers/update-<wbr>one.controller"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_helpers_index_.html">"api/helpers/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_helpers_logger_.html">"api/helpers/logger"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_helpers_model_.html">"api/helpers/model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_helpers_mongo_collection_.html">"api/helpers/mongo-<wbr>collection"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_helpers_mongo_manager_.html">"api/helpers/mongo-<wbr>manager"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_middlewares_auth_middleware_.html">"api/middlewares/auth.middleware"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_middlewares_ejson_middleware_.html">"api/middlewares/ejson.middleware"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_middlewares_index_.html">"api/middlewares/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_middlewares_jsend_middleware_.html">"api/middlewares/jsend.middleware"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_middlewares_mongo_middleware_.html">"api/middlewares/mongo.middleware"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_middlewares_schemas_middleware_.html">"api/middlewares/schemas.middleware"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_middlewares_sse_middleware_.html">"api/middlewares/sse.middleware"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_models_default_config_model_.html">"api/models/default-<wbr>config.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_models_generic_model_.html">"api/models/generic.model"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_models_index_.html">"api/models/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_index_.html">"api/openapi/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_aggregate_.html">"api/openapi/paths/aggregate"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_count_documents_.html">"api/openapi/paths/count-<wbr>documents"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_delete_many_.html">"api/openapi/paths/delete-<wbr>many"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_delete_one_.html">"api/openapi/paths/delete-<wbr>one"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_distinct_.html">"api/openapi/paths/distinct"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_find_.html">"api/openapi/paths/find"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_find_one_.html">"api/openapi/paths/find-<wbr>one"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_index_.html">"api/openapi/paths/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_insert_many_.html">"api/openapi/paths/insert-<wbr>many"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_insert_one_.html">"api/openapi/paths/insert-<wbr>one"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_update_many_.html">"api/openapi/paths/update-<wbr>many"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_paths_update_one_.html">"api/openapi/paths/update-<wbr>one"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_responses_generic_client_error_.html">"api/openapi/responses/generic-<wbr>client-<wbr>error"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_responses_generic_server_error_.html">"api/openapi/responses/generic-<wbr>server-<wbr>error"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_responses_index_.html">"api/openapi/responses/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_schemas_index_.html">"api/openapi/schemas/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_api_openapi_servers_index_.html">"api/openapi/servers/index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">"index"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_mongorestorm_server_.html">"mongorestorm-<wbr>server"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
