@@ -106,6 +106,8 @@ All endpoints exposed by MongoRestOrm Server will be prefixed by the `basePath` 
 
 To see the endpoints exposed by MongoRestOrm Server for the mongodb CRUD operations, please visit the [Wiki](https://github.com/zishone/mongorestorm-server/wiki/Endpoints).
 
+## MongoRestOrm Client
+Comming Soon...
 
 ## MongoDB Extended JSON
 MongoRestOrm Server serializes and deserializes the data it receives and sends using the [MongoDB Extended JSON (v2)](https://docs.mongodb.com/manual/reference/mongodb-extended-json/) specification to preserve special MongoDB types such as `ObjectID`.
@@ -116,13 +118,13 @@ MongoRestOrm Server serializes and deserializes the data it receives and sends u
 |-------------------------------------- |------------------------------------------------ |------------------------------------------------ |
 | `{ _id: 'aaaaaaaaaaaaaaaaaaaaaaaa' }` | `{ _id: { $oid: 'aaaaaaaaaaaaaaaaaaaaaaaa' } }` | `{ _id: ObjectId('aaaaaaaaaaaaaaaaaaaaaaaa') }` |
 
-Packages deserialize the EJSON to a plain jsonn/dict/struct with native/BSON types.
+Packages that deserialize EJSON to a plain json/dict/struct with native/BSON types.
 
 | Language   | Package |
 |----------- |-------- |
 | Javascript | [bson](https://www.npmjs.com/package/bson) |
 | Python     | [pymongo](https://pypi.org/project/pymongo/) |
-| Go         | [mongo](https://go.mongodb.org/mongo-driver/mongo/) |
+| Go         | [gomongo](https://go.mongodb.org/mongo-driver/mongo/) |
 
 ## Recommendations
 Usage of this package is only recommended for applications with a microservice architecture and should only have communications with other microservices within the application. Exposing the API to the client might cause some security issues.

@@ -1,1 +1,1 @@
-export { MongoRestOrmServer } from './MongoRestOrmServer';
+export { MongoRestOrmServer } from './mongorestorm-server';
