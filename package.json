@@ -4,6 +4,9 @@
   "description": "A REST server for commonly used mongodb-driver operations.",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "cleanup": "rimraf dist && rimraf coverage && rimraf .nyc_output && rimraf docs",
     "lint": "tslint --project tsconfig.json",
